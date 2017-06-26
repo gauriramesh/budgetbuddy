@@ -34,6 +34,15 @@ h1 {
   color: white;
 }
 
+.OverallBalance-submit {
+  background-color: darkgreen;
+  color: white;
+  font-family: 'Josefin Slab', serif;
+  height: 30px;
+  width: 50px;
+  border-radius: 15px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
