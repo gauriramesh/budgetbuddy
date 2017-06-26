@@ -15,11 +15,13 @@ class OverallBalance extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            overallBalance: "$0.00"
+            overallBalance: "$0.00",
+            showPop: false
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
     this.handleOverallBalance = this.handleOverallBalance.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
 
     };
 
@@ -42,7 +44,9 @@ class OverallBalance extends Component {
     }
 
     handleEdit() {
-        //TODO: add popup functionality here.
+        this.setState({
+           showPop: true,
+        });
     }
 
 
@@ -55,10 +59,12 @@ class OverallBalance extends Component {
                     <input id="obalance" className="OverallBalance-input" onChange={(e) => this.handleOverallBalance(e)}/>
                     <button className="OverallBalance-submit" type="button" onClick={this.handleSubmission}> Enter </button>
                     <button type="button" onClick={this.handleEdit}>Edit</button>
+                    {this.state.showPop ? <p1> INSERT POPUP ELEMENT HERE UNMOUNT COMPONENT AT NODE </p1>: null}
                 </form>
             </div>
         );
     }
 }
+
 
 export default App;
