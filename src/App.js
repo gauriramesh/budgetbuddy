@@ -43,10 +43,18 @@ class OverallBalance extends Component {
     updateOverallBalance(e) {
         e.preventDefault();
         let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.]+/g,""));
+        //TODO: This regex doesn't account for negative numbers.
+        //console.log(oldCurrency);
         let addCurrency = Number(document.getElementById('add').value.replace(/[^0-9.]+/g,""));
         let subtractCurrency = Number(document.getElementById('subtract').value.replace(/[^0-9.]+/g,""));
 
         this.setState({overallBalance: (oldCurrency+addCurrency-subtractCurrency).toString()});
+        this.setState({showPop: false});
+        if(oldCurrency+addCurrency-subtractCurrency < 0) {
+            document.getElementById('obalance').style.backgroundColor = "#a50000"; //hello
+        } else {
+            document.getElementById('obalance').style.backgroundColor = "#1eb550";
+        }
         //console.log(this.state.overallBalance);
 
     }
@@ -70,7 +78,7 @@ class OverallBalance extends Component {
                 <form>
                     <input id="obalance" className="OverallBalance-input" value={this.state.overallBalance} onChange={(e) => this.setOverallBalance(e)}/>
                     <button className="OverallBalance-submit" type="button" onClick={this.handleSubmission}> Enter </button>
-                    <button type="button" onClick={this.handleEdit}>Edit</button>
+                    <button className="OverallBalance-submit" type="button" onClick={this.handleEdit}>Edit</button>
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
@@ -85,8 +93,11 @@ function EditPopup(props) {
               <div className="popup">
                   Edit or Update Balance
                   <form>
-                      <input id="add" defaultValue="$0.00"/> <button onClick={props.updateOverallBalance}> Add </button> <br/>
-                      <input id="subtract" defaultValue="$0.00"/> <button onClick={props.updateOverallBalance}> Subtract </button>
+                      Add:
+                      <input id="add" defaultValue="$0.00"/> <br/>
+                      Subtract:
+                      <input id="subtract" defaultValue="$0.00"/> <br/>
+                      <button onClick={props.updateOverallBalance}> Update & Close </button>
                   </form>
               </div>
           </div>
