@@ -19,9 +19,10 @@ class OverallBalance extends Component {
             showPop: false
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
-    this.handleOverallBalance = this.handleOverallBalance.bind(this);
+    this.setOverallBalance = this.setOverallBalance.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.updateOverallBalance = this.updateOverallBalance.bind(this);
 
     };
 
@@ -30,13 +31,24 @@ class OverallBalance extends Component {
         return regexp.test(input);
     }
 
-    handleOverallBalance(e) {
+    setOverallBalance(e) {
         e.preventDefault();
         console.log(this.state.overallBalance);
         if(this.moneyIsValidated(e.target.value)===true) {
             this.setState({overallBalance: e.target.value});
         }
         //may be able to condense this down into one method.
+    }
+
+    updateOverallBalance(e) {
+        e.preventDefault();
+        let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.]+/g,""));
+        let addCurrency = Number(document.getElementById('add').value.replace(/[^0-9.]+/g,""));
+        let subtractCurrency = Number(document.getElementById('subtract').value.replace(/[^0-9.]+/g,""));
+
+        this.setState({overallBalance: (oldCurrency+addCurrency-subtractCurrency).toString()});
+        //console.log(this.state.overallBalance);
+
     }
 
     handleSubmission() {
@@ -56,15 +68,33 @@ class OverallBalance extends Component {
         return (
             <div className="App">
                 <form>
-                    <input id="obalance" className="OverallBalance-input" onChange={(e) => this.handleOverallBalance(e)}/>
+                    <input id="obalance" className="OverallBalance-input" value={this.state.overallBalance} onChange={(e) => this.setOverallBalance(e)}/>
                     <button className="OverallBalance-submit" type="button" onClick={this.handleSubmission}> Enter </button>
                     <button type="button" onClick={this.handleEdit}>Edit</button>
-                    {this.state.showPop ? <p1> INSERT POPUP ELEMENT HERE UNMOUNT COMPONENT AT NODE </p1>: null}
+                    {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
+                    {/*Seems like potential opportunity for refactoring*/}
                 </form>
             </div>
         );
     }
 }
+
+function EditPopup(props) {
+      return(
+          <div>
+              <div className="popup">
+                  Edit or Update Balance
+                  <form>
+                      <input id="add" defaultValue="$0.00"/> <button onClick={props.updateOverallBalance}> Add </button> <br/>
+                      <input id="subtract" defaultValue="$0.00"/> <button onClick={props.updateOverallBalance}> Subtract </button>
+                  </form>
+              </div>
+          </div>
+      );
+}
+
+
+
 
 
 export default App;
