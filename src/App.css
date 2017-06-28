@@ -51,6 +51,7 @@ h1 {
 .popup {
     border-color: black;
     font-family: 'Josefin Slab', serif;
+    font-weight: bold;
     background-color: white;
     text-align: center;
     height: 25vh;
@@ -61,10 +62,39 @@ h1 {
 
 .popup input {
     font-family: 'Josefin Slab', serif;
+    display: inline-block;
 }
 
 .popup input:focus {
     background-color: lightblue;
 }
+
+.updateClose {
+    background-color: darkgreen;
+    color: white;
+    font-family: 'Josefin Slab', serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    height: 50px;
+    width: 80px;
+    border-radius: 15px;
+    border-color: black;
+}
+
+.CategoryButton {
+    text-align: left;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-family: 'Josefin Slab', serif;
+    font-size: 50px;
+    border-radius: 20px;
+    background-color: #f48042;
+    color: white;
+    border-color: white;
+    float: left;
+    margin-left: 1vw;
+}
+
+
 
 

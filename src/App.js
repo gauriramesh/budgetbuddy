@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
+import CategoryButton from './CategoryButton.js';
 
 class App extends Component {
   render() {
@@ -67,9 +69,6 @@ class OverallBalance extends Component {
         });
     }
 
-
-
-
     render() {
         return (
             <div className="App">
@@ -81,6 +80,7 @@ class OverallBalance extends Component {
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
+                <CategoryButton/>
             </div>
         );
     }
@@ -92,18 +92,19 @@ function EditPopup(props) {
               <div className="popup">
                   <h3> Edit or Update Balance </h3>
                   <form>
-                      Add:
-                      <input id="add" defaultValue="$0.00"/> <br/>
-                      Subtract:
-                      <input id="subtract" defaultValue="$0.00"/> <br/>
-                      <button onClick={props.updateOverallBalance}> Update & Close </button>
+                      Add: <input id="add" name="Add" defaultValue="$0.00"/> <br/>
+                      Subtract: <input id="subtract" name="Subtract" defaultValue="$0.00"/> <br/>
+                      <button className="updateClose" onClick={props.updateOverallBalance}> Update & Close </button>
                   </form>
               </div>
           </div>
       );
 }
 
-
+EditPopup.propTypes = {
+    updateOverallBalance: PropTypes.func.isRequired
+    // {Need to test this: it says func is unresolved variable}
+}
 
 
 
