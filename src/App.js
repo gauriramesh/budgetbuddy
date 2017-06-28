@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 import CategoryButton from './CategoryButton.js';
+import Budget from './Budget.js';
 
 class App extends Component {
   render() {
@@ -55,7 +56,8 @@ class OverallBalance extends Component {
         } else {
             document.getElementById('obalance').style.backgroundColor = "#1eb550";
         }
-        //console.log(this.state.overallBalance);
+        //TODO: Move the color changing thing somehwhere else so that budget components can access it.
+        //TODO: Also does not account for if initial typed value is negative.
 
     }
 
@@ -80,7 +82,7 @@ class OverallBalance extends Component {
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
-                <CategoryButton/>
+                <CategoryButton/> <Budget overallBalance={this.state.overallBalance}/>
             </div>
         );
     }

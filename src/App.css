@@ -95,6 +95,34 @@ h1 {
     margin-left: 1vw;
 }
 
+.BudgetTitle {
+    margin-top: 1vw;
+    text-align: center;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-family: 'Josefin Slab', serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #609dff;
+    color: white;
+    float: left;
+    clear: left;
+    margin-left: 1vw;
+}
 
+.CategoryBalance {
+    margin-top: 1vw;
+    text-align: center;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-family: 'Josefin Slab', serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #609dff;
+    color: white;
+    float: left;
+}
 
 

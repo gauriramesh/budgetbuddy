@@ -8,7 +8,6 @@ function CategoryButton(props) {
                 </button>
             </div>
         );
-
 }
 
 export default CategoryButton;
