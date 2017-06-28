@@ -75,7 +75,8 @@ class OverallBalance extends Component {
             <div className="App">
                 <form>
                     <input id="obalance" className="OverallBalance-input" value={this.state.overallBalance} onChange={(e) => this.setOverallBalance(e)}/>
-                    <button className="OverallBalance-submit" type="button" onClick={this.handleSubmission}> Enter </button>
+                    <br/>
+                    <button className="OverallBalance-submit"  type="button" onClick={this.handleSubmission}> Enter </button>
                     <button className="OverallBalance-submit" type="button" onClick={this.handleEdit}>Edit</button>
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
@@ -89,7 +90,7 @@ function EditPopup(props) {
       return(
           <div>
               <div className="popup">
-                  Edit or Update Balance
+                  <h3> Edit or Update Balance </h3>
                   <form>
                       Add:
                       <input id="add" defaultValue="$0.00"/> <br/>
