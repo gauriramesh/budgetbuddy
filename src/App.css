@@ -45,6 +45,7 @@ h1 {
   width: 60px;
   border-radius: 15px;
     border-color: black;
+    margin-top: 1vh;
 
 }
 
@@ -83,16 +84,17 @@ h1 {
 
 .CategoryButton {
     text-align: left;
+    margin-top: 2vh;
     padding-top: 1vh;
     padding-bottom: 1vh;
     font-family: 'Josefin Slab', serif;
-    font-size: 50px;
+    font-size: 30px;
     border-radius: 20px;
-    background-color: #f48042;
     color: white;
     border-color: white;
     float: left;
     margin-left: 1vw;
+    margin-right: 3vw;
 }
 
 .BudgetTitle {

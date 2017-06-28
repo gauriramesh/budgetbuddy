@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 function CategoryButton(props) {
         return (
             <div>
-                <button className="CategoryButton" onClick={props.handleClick}>
-                    Create Budget &#10133;
+                <button className="CategoryButton" onClick={props.handleClick} style={{backgroundColor: props.color}}>
+                    {props.name}
                 </button>
             </div>
         );
