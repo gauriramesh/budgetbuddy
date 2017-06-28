@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
+import CategoryButton from './CategoryButton.js';
+import Budget from './Budget.js';
 
 class App extends Component {
   render() {
@@ -53,7 +56,8 @@ class OverallBalance extends Component {
         } else {
             document.getElementById('obalance').style.backgroundColor = "#1eb550";
         }
-        //console.log(this.state.overallBalance);
+        //TODO: Move the color changing thing somehwhere else so that budget components can access it.
+        //TODO: Also does not account for if initial typed value is negative.
 
     }
 
@@ -67,9 +71,6 @@ class OverallBalance extends Component {
         });
     }
 
-
-
-
     render() {
         return (
             <div className="App">
@@ -81,6 +82,7 @@ class OverallBalance extends Component {
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
+                <CategoryButton/> <Budget overallBalance={this.state.overallBalance}/>
             </div>
         );
     }
@@ -92,18 +94,19 @@ function EditPopup(props) {
               <div className="popup">
                   <h3> Edit or Update Balance </h3>
                   <form>
-                      Add:
-                      <input id="add" defaultValue="$0.00"/> <br/>
-                      Subtract:
-                      <input id="subtract" defaultValue="$0.00"/> <br/>
-                      <button onClick={props.updateOverallBalance}> Update & Close </button>
+                      Add: <input id="add" name="Add" defaultValue="$0.00"/> <br/>
+                      Subtract: <input id="subtract" name="Subtract" defaultValue="$0.00"/> <br/>
+                      <button className="updateClose" onClick={props.updateOverallBalance}> Update & Close </button>
                   </form>
               </div>
           </div>
       );
 }
 
-
+EditPopup.propTypes = {
+    updateOverallBalance: PropTypes.func.isRequired
+    // {Need to test this: it says func is unresolved variable}
+}
 
 
 
