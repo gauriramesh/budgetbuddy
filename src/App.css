@@ -32,18 +32,24 @@ h1 {
   border-radius: 20px;
   background-color: #1eb550;
   color: white;
+    border-color: white;
 }
 
 .OverallBalance-submit {
   background-color: darkgreen;
   color: white;
   font-family: 'Josefin Slab', serif;
-  height: 30px;
-  width: 50px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  height: 35px;
+  width: 60px;
   border-radius: 15px;
+    border-color: black;
+
 }
 
 .popup {
+    border-color: black;
     font-family: 'Josefin Slab', serif;
     background-color: white;
     text-align: center;
@@ -53,7 +59,12 @@ h1 {
     border-radius: 15px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.popup input {
+    font-family: 'Josefin Slab', serif;
 }
+
+.popup input:focus {
+    background-color: lightblue;
+}
+
+
