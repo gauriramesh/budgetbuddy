@@ -27,7 +27,7 @@ class OverallBalance extends Component {
     };
 
     moneyIsValidated(input) {
-        let regexp = /^\$?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?\.[0-9]{1,2}$/;
+        let regexp = /^(?:(?:USD)?\$)?(?:-)?(?:\d+|\d{1,3}(?:,\d{3})*)(?:\.\d{1,2})?$/;
         return regexp.test(input);
     }
 
@@ -42,11 +42,9 @@ class OverallBalance extends Component {
 
     updateOverallBalance(e) {
         e.preventDefault();
-        let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.]+/g,""));
-        //TODO: This regex doesn't account for negative numbers.
-        //console.log(oldCurrency);
-        let addCurrency = Number(document.getElementById('add').value.replace(/[^0-9.]+/g,""));
-        let subtractCurrency = Number(document.getElementById('subtract').value.replace(/[^0-9.]+/g,""));
+        let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.||-]+/g,""));
+        let addCurrency = Number(document.getElementById('add').value.replace(/[^0-9.||-]+/g,""));
+        let subtractCurrency = Number(document.getElementById('subtract').value.replace(/[^0-9.||-]+/g,""));
 
         this.setState({overallBalance: (oldCurrency+addCurrency-subtractCurrency).toString()});
         this.setState({showPop: false});
