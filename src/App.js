@@ -19,13 +19,15 @@ class OverallBalance extends Component {
         super(props);
         this.state = {
             overallBalance: "$0.00",
-            showPop: false
+            showPop: false,
+            showBudgets: false
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
     this.setOverallBalance = this.setOverallBalance.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.updateOverallBalance = this.updateOverallBalance.bind(this);
+    this.handleCategoryButtonClick = this.handleCategoryButtonClick.bind(this);
 
     };
 
@@ -50,6 +52,7 @@ class OverallBalance extends Component {
         let subtractCurrency = Number(document.getElementById('subtract').value.replace(/[^0-9.||-]+/g,""));
 
         this.setState({overallBalance: (oldCurrency+addCurrency-subtractCurrency).toString()});
+        console.log(this.state.overallBalance);
         this.setState({showPop: false});
         if(oldCurrency+addCurrency-subtractCurrency < 0) {
             document.getElementById('obalance').style.backgroundColor = "#a50000"; //hello
@@ -71,6 +74,14 @@ class OverallBalance extends Component {
         });
     }
 
+    handleCategoryButtonClick() {
+    this.setState({
+        showBudgets: true,
+    });
+}
+
+
+
     render() {
         return (
             <div className="App">
@@ -82,7 +93,9 @@ class OverallBalance extends Component {
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
-                <CategoryButton/> <Budget overallBalance={this.state.overallBalance}/>
+                <CategoryButton handleClick={this.handleCategoryButtonClick}/>
+                {this.state.showBudgets ? <Budget balance={this.state.overallBalance}/> : null}
+
             </div>
         );
     }

@@ -5,7 +5,8 @@ class Budget extends Component {
         return (
             <div>
                 <BudgetTitle/>
-                <CategoryBalance overallBalance={this.props.overallBalance}/>
+                <CategoryBalance balance={this.props.balance}/>
+                {console.log("Budget Balance" + this.props.balance)}
             </div>
         );
     }
@@ -22,7 +23,7 @@ function BudgetTitle(props) {
 function CategoryBalance(props) {
     return(
         <div>
-            <input disabled className="CategoryBalance" defaultValue={props.overallBalance}/>
+            <input disabled className="CategoryBalance" placeholder={props.balance}/>
         </div>
     );
 }
