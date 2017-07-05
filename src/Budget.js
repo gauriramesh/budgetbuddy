@@ -4,9 +4,8 @@ class Budget extends Component {
     render() {
         return (
             <div>
-                <BudgetTitle/>
-                <CategoryBalance balance={this.props.balance}/>
-                {console.log("Budget Balance" + this.props.balance)}
+                <BudgetTitle balance={this.props.balance}/>
+                <CategoryEntry color="#bfd9ff"/>
             </div>
         );
     }
@@ -16,14 +15,19 @@ function BudgetTitle(props) {
     return(
         <div>
             <input disabled className="BudgetTitle" defaultValue="Spendable Money"/>
+            <input disabled className="CategoryBalance" placeholder={props.balance}/>
+            <button className="CategoryBalance" onClick={props.addEntry}> &#43; </button>
         </div>
     );
 }
 
-function CategoryBalance(props) {
+
+
+function CategoryEntry(props) {
     return(
         <div>
-            <input disabled className="CategoryBalance" placeholder={props.balance}/>
+            <input className="BudgetTitle" placeholder="Name" style={{backgroundColor: props.color}} />
+            <input className="CategoryBalance" placeholder="Amount" style={{backgroundColor: props.color}} />
         </div>
     );
 }

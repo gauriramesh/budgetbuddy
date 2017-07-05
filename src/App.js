@@ -19,8 +19,7 @@ class OverallBalance extends Component {
         super(props);
         this.state = {
             overallBalance: "$0.00",
-            showPop: false,
-            showBudgets: false
+            showPop: false
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
     this.setOverallBalance = this.setOverallBalance.bind(this);
@@ -82,6 +81,8 @@ class OverallBalance extends Component {
 
 
 
+
+
     render() {
         return (
             <div className="App">
@@ -93,9 +94,9 @@ class OverallBalance extends Component {
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
-                <CategoryButton handleClick={this.handleCategoryButtonClick} name="Generate Budgets &#10227;" color="#f48042"/>
+                <CategoryButton handleClick={this.handleCategoryButtonClick} name="Generate Budgets &#10227;" color="#10d3a6"/>
                 <CategoryButton handleClick={null} name="Add New Budget" color="#10d3a6"/>
-                <CategoryButton handleClick={null} name="Add New Entry" color="#ef4c9b"/>
+                <CategoryButton handleClick={null} name="Add New Entry" color="#10d3a6"/>
                 {this.state.showBudgets ? <Budget balance={this.state.overallBalance}/> : null}
 
             </div>
