@@ -19,7 +19,18 @@ class OverallBalance extends Component {
         super(props);
         this.state = {
             overallBalance: "$0.00",
-            showPop: false
+            showPop: false,
+            budgets: [
+                {
+                    title: 'Vacations',
+                    entries: [
+                        {
+                            spent: 10,
+                            place: 'San Francisco',
+                        },
+                    ],
+                },
+            ]
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
     this.setOverallBalance = this.setOverallBalance.bind(this);
@@ -27,6 +38,7 @@ class OverallBalance extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.updateOverallBalance = this.updateOverallBalance.bind(this);
     this.handleCategoryButtonClick = this.handleCategoryButtonClick.bind(this);
+    this.handleAddBudgetClick = this.handleAddBudgetClick.bind(this);
 
     };
 
@@ -79,11 +91,26 @@ class OverallBalance extends Component {
     });
 }
 
+handleAddBudgetClick() {
+    let array = this.state.budgets;
+    array.push({
+        title: 'Schmacations',
+        entries: [
+            {
+                spent: 10,
+                place: 'Hullo',
+            },
+        ],
+    },);
+    this.setState({budgets: array});
+    console.log(array);
+}
 
 
 
 
     render() {
+        const budget = this.state.budgets;
         return (
             <div className="App">
                 <form>
@@ -95,9 +122,14 @@ class OverallBalance extends Component {
                     {/*Seems like potential opportunity for refactoring*/}
                 </form>
                 <CategoryButton handleClick={this.handleCategoryButtonClick} name="Generate Budgets &#10227;" color="#10d3a6"/>
-                <CategoryButton handleClick={null} name="Add New Budget" color="#10d3a6"/>
+                <CategoryButton handleClick={this.handleAddBudgetClick} name="Add New Budget" color="#10d3a6"/>
                 <CategoryButton handleClick={null} name="Add New Entry" color="#10d3a6"/>
                 {this.state.showBudgets ? <Budget balance={this.state.overallBalance}/> : null}
+                {
+                    this.state.budgets.map((item) => (
+                        <Budget balance={this.state.overallBalance}/>
+                    ))
+                }
 
             </div>
         );
