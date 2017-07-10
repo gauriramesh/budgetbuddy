@@ -40,6 +40,7 @@ class OverallBalance extends Component {
     this.handleCategoryButtonClick = this.handleCategoryButtonClick.bind(this);
     this.handleAddBudgetClick = this.handleAddBudgetClick.bind(this);
     this.handleBudgetAllocation = this.handleBudgetAllocation.bind(this);
+    this.checkNegative = this.checkNegative.bind(this);
 
     };
 
@@ -57,6 +58,14 @@ class OverallBalance extends Component {
         //may be able to condense this down into one method.
     }
 
+    checkNegative() {
+        if(Number(this.state.overallBalance.replace(/[^0-9.||-]+/g,"")) < 0) {
+            document.getElementById('obalance').style.backgroundColor = "#a50000";
+        } else {
+            document.getElementById('obalance').style.backgroundColor = "#1eb550";
+        }
+    }
+
     updateOverallBalance(e) {
         e.preventDefault();
         let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.||-]+/g,""));
@@ -66,11 +75,7 @@ class OverallBalance extends Component {
         this.setState({overallBalance: (oldCurrency+addCurrency-subtractCurrency).toString()});
         console.log(this.state.overallBalance);
         this.setState({showPop: false});
-        if(oldCurrency+addCurrency-subtractCurrency < 0) {
-            document.getElementById('obalance').style.backgroundColor = "#a50000"; //hello
-        } else {
-            document.getElementById('obalance').style.backgroundColor = "#1eb550";
-        }
+        this.checkNegative();
         //TODO: Move the color changing thing somehwhere else so that budget components can access it.
         //TODO: Also does not account for if initial typed value is negative.
 
@@ -112,16 +117,16 @@ handleBudgetAllocation() {
     //TODO: Fix this so that it doesn't re-subtract old budgets when you change it.
     console.log("Starting budget allocation handler!");
     var allocations = document.getElementsByClassName("BudgetAllocation");
-    var allocationArray = Array.prototype.slice.call(allocations);
-    var allocationsArray = allocationArray.map((allocation) => allocation.value);
+    var allocationsArray = Array.prototype.slice.call(allocations).map((allocation) => allocation.value);
 
 
     allocationsArray.forEach((element) => {
-        if (this.moneyIsValidated(element) === true) {
+        if (this.moneyIsValidated(element)) {
             let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.||-]+/g, ""));
             console.log(oldCurrency);
             let allocation = Number(element.replace(/[^0-9.||-]+/g, ""));
             console.log(allocation);
+            this.checkNegative();
             this.setState({overallBalance: (oldCurrency - allocation).toString()});
         }
     });
@@ -148,7 +153,7 @@ handleBudgetAllocation() {
                 {this.state.showBudgets ? <Budget balance={this.state.overallBalance} handleBudgetAllocation={(e) => this.handleBudgetAllocation(e)}/> : null}
                 {
                     this.state.budgets.map((item) => (
-                        <Budget balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
+                        <Budget entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
                     ))
                 }
 
