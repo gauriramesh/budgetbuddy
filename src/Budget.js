@@ -5,6 +5,11 @@ function Budget(props) {
             <div>
                 <BudgetAllocation handleBudgetAllocation={props.handleBudgetAllocation}/>
                 <BudgetTitle balance={props.balance} addEntry={props.addEntry}/>
+                {
+                    props.entries.map((entry) => (
+                        <CategoryEntry color="#adf442"/>
+                    ))
+                }
             </div>
         );
 }
@@ -12,9 +17,9 @@ function Budget(props) {
 function BudgetTitle(props) {
     return(
         <div>
-            <input disabled className="BudgetTitle" defaultValue={props.title} />
+            <input className="BudgetTitle" placeholder="Vacations" />
             <input className="CategoryBalance" placeholder={props.balance}/>
-            <button className="CategoryBalance" onClick={props.addEntry}> &#43; </button>
+            <button className="CategoryBalance" placeholder="click to add" onClick={props.addEntry}> &#43; </button>
         </div>
     );
 }
@@ -22,8 +27,8 @@ function BudgetTitle(props) {
 function BudgetAllocation(props) {
     return(
       <div>
-          <input className="CategoryBalance BudgetAllocation" placeholder="Total Amount Allocated"/>
-          <button className="CategoryButton" type="button" onClick={props.handleBudgetAllocation}> 	&#10003; </button>
+          <input className="BudgetTitle BudgetAllocation" placeholder="Total Amount Allocated"/>
+          <button className="CategoryBalance" type="button" onClick={props.handleBudgetAllocation}> 	&#10003; </button>
       </div>
     );
 }
