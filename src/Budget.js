@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 function Budget(props) {
         return (
             <div>
+                <BudgetAllocation handleBudgetAllocation={props.handleBudgetAllocation}/>
                 <BudgetTitle balance={props.balance} addEntry={props.addEntry}/>
-                <CategoryEntry color="#bfd9ff"/>
             </div>
         );
 }
@@ -16,6 +16,15 @@ function BudgetTitle(props) {
             <input className="CategoryBalance" placeholder={props.balance}/>
             <button className="CategoryBalance" onClick={props.addEntry}> &#43; </button>
         </div>
+    );
+}
+
+function BudgetAllocation(props) {
+    return(
+      <div>
+          <input className="CategoryBalance BudgetAllocation" placeholder="Total Amount Allocated"/>
+          <button className="CategoryButton" type="button" onClick={props.handleBudgetAllocation}> 	&#10003; </button>
+      </div>
     );
 }
 

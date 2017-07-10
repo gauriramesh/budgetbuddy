@@ -39,6 +39,7 @@ class OverallBalance extends Component {
     this.updateOverallBalance = this.updateOverallBalance.bind(this);
     this.handleCategoryButtonClick = this.handleCategoryButtonClick.bind(this);
     this.handleAddBudgetClick = this.handleAddBudgetClick.bind(this);
+    this.handleBudgetAllocation = this.handleBudgetAllocation.bind(this);
 
     };
 
@@ -107,6 +108,26 @@ handleAddBudgetClick() {
 }
 
 
+handleBudgetAllocation() {
+    //TODO: Fix this so that it doesn't re-subtract old budgets when you change it.
+    console.log("Starting budget allocation handler!");
+    var allocations = document.getElementsByClassName("BudgetAllocation");
+    var allocationArray = Array.prototype.slice.call(allocations);
+    var allocationsArray = allocationArray.map((allocation) => allocation.value);
+
+
+    allocationsArray.forEach((element) => {
+        if (this.moneyIsValidated(element) === true) {
+            let oldCurrency = Number(this.state.overallBalance.replace(/[^0-9.||-]+/g, ""));
+            console.log(oldCurrency);
+            let allocation = Number(element.replace(/[^0-9.||-]+/g, ""));
+            console.log(allocation);
+            this.setState({overallBalance: (oldCurrency - allocation).toString()});
+        }
+    });
+}
+
+
 
 
     render() {
@@ -124,10 +145,10 @@ handleAddBudgetClick() {
                 <CategoryButton handleClick={this.handleCategoryButtonClick} name="Generate Budgets &#10227;" color="#10d3a6"/>
                 <CategoryButton handleClick={this.handleAddBudgetClick} name="Add New Budget" color="#10d3a6"/>
                 <CategoryButton handleClick={null} name="Add New Entry" color="#10d3a6"/>
-                {this.state.showBudgets ? <Budget balance={this.state.overallBalance}/> : null}
+                {this.state.showBudgets ? <Budget balance={this.state.overallBalance} handleBudgetAllocation={(e) => this.handleBudgetAllocation(e)}/> : null}
                 {
                     this.state.budgets.map((item) => (
-                        <Budget balance={this.state.overallBalance}/>
+                        <Budget balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
                     ))
                 }
 
