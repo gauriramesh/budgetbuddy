@@ -129,12 +129,13 @@ handleBudgetAllocation() {
             console.log(oldCurrency);
             let allocation = Number(element.replace(/[^0-9.||-]+/g, ""));
             console.log(allocation);
+            this.setState({amountAllocated: allocation.toString()})
+            console.log(this.state.amountAllocated);
             this.checkNegative();
             this.setState({overallBalance: (oldCurrency - allocation).toString()});
         }
     });
 }
-
 
 
 handleAddEntry() {
@@ -167,7 +168,7 @@ handleAddEntry() {
                 {this.state.showBudgets ? <Budget balance={this.state.overallBalance} handleBudgetAllocation={(e) => this.handleBudgetAllocation(e)}/> : null}
                 {
                     this.state.budgets.map((item) => (
-                        <Budget addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
+                        <Budget amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
                     ))
                 }
 

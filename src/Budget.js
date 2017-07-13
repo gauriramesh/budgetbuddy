@@ -4,7 +4,7 @@ function Budget(props) {
         return (
             <div>
                 <BudgetAllocation handleBudgetAllocation={props.handleBudgetAllocation}/>
-                <BalanceTracking/>
+                <BalanceTracking amountAllocated={props.amountAllocated}/>
                 <BudgetTitle balance={props.balance} addEntry={props.addEntry}/>
                 <CategoryEntry color="#adf442"/>
                 <CategoryEntry color="#adf442"/>
@@ -38,7 +38,7 @@ function BalanceTracking(props) {
     return(
         <div>
             <input className="BudgetTitle" placeholder="Amount Left:" />
-            <button className="Entry"/>
+            <button className="Entry">{props.amountAllocated}</button>
         </div>
     );
 }
