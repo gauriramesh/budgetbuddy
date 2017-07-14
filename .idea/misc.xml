@@ -3,10 +3,6 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
-  <component name="SvnConfiguration" myUseAcceleration="nothing">
-    <configuration>C:\Users\req91304\AppData\Roaming\Subversion</configuration>
-    <option name="sshConnectionType" value="PASSWORD" />
-  </component>
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">

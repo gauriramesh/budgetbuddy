@@ -22,6 +22,7 @@ class OverallBalance extends Component {
             overallBalance: "$0.00",
             showPop: false,
             amountAllocated: "$0.00",
+            totalUsed: "$0.00",
             budgets: [
                 {
                     title: 'Vacations',
@@ -43,7 +44,6 @@ class OverallBalance extends Component {
     this.handleAddBudgetClick = this.handleAddBudgetClick.bind(this);
     this.handleBudgetAllocation = this.handleBudgetAllocation.bind(this);
     this.checkNegative = this.checkNegative.bind(this);
-    this.handleAddEntry = this.handleAddEntry.bind(this);
 
     };
 
@@ -137,14 +137,8 @@ handleBudgetAllocation() {
     });
 }
 
-
-handleAddEntry() {
-        let stateUpdater = this.state.budgets;
-        let object = {name: 'something', amount: '0'};
-        stateUpdater[0].entries.push(object);
-        this.setState({budgets: stateUpdater});
-        console.log("updating entry state");
-        console.log(this.state.budgets[0].entries.length);
+handleEntryKey() {
+        //TODO: IMPLEMENT THIS WHEN YOU PULL IT DOWN.
 }
 
 
@@ -168,7 +162,7 @@ handleAddEntry() {
                 {this.state.showBudgets ? <Budget balance={this.state.overallBalance} handleBudgetAllocation={(e) => this.handleBudgetAllocation(e)}/> : null}
                 {
                     this.state.budgets.map((item) => (
-                        <Budget amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
+                        <Budget totalUsed={this.state.totalUsed} amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
                     ))
                 }
 

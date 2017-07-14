@@ -6,14 +6,15 @@ function Budget(props) {
                 <BudgetAllocation handleBudgetAllocation={props.handleBudgetAllocation}/>
                 <BalanceTracking amountAllocated={props.amountAllocated}/>
                 <BudgetTitle balance={props.balance} addEntry={props.addEntry}/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
-                <CategoryEntry color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
+                <BottomTotals totalUsed={props.totalUsed}/>
 
                 {/*{*/}
                 {/*props.entries.map((entry) => (*/}
@@ -60,7 +61,16 @@ function CategoryEntry(props) {
         <div>
             <input className="BudgetTitle" placeholder="Name" style={{backgroundColor: props.color}} />
             {/*On change probably need to update the giant data structure*/}
-            <input className="Entry" placeholder="Amount" style={{backgroundColor: props.color}} />
+            <input className="Entry" placeholder="Amount" style={{backgroundColor: props.color}} onKeyPress={props.handleEntryKey} />
+        </div>
+    );
+}
+
+function BottomTotals(props) {
+    return(
+        <div>
+            <input disabled className="BudgetTitle" value="Total:"/>
+            <input disabled className="CategoryBalance" value={props.totalUsed}/>
         </div>
     );
 }
