@@ -22,12 +22,11 @@ Once it's installed, you can run `node --v` to ensure that it is installed.
 ## Built With
 
 * [ReactJS](https://facebook.github.io/react/) - React with ECMAScript 6. Running npm install should retrieve Babel, the required transpiler for ES6 code. 
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Jest](https://facebook.github.io/jest/) - Jest JavaScript Unit Testing Framework
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/gauriramesh/budgetbuddy/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
