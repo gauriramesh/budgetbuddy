@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './App.css';
 import CategoryButton from './CategoryButton.js';
 import Budget from './Budget.js';
-import CategoryEntry from './Budget.js';
+import CategoryEntry from './Entry.js';
 
 class App extends Component {
   render() {
@@ -23,17 +23,6 @@ class OverallBalance extends Component {
             showPop: false,
             amountAllocated: "$0.00",
             totalUsed: "$0.00",
-            budgets: [
-                {
-                    title: 'Vacations',
-                    entries: [
-                        {
-                            name: 'San Francisco',
-                            amount: 10,
-                        },
-                    ],
-                },
-            ]
         }
     this.moneyIsValidated = this.moneyIsValidated.bind(this);
     this.setOverallBalance = this.setOverallBalance.bind(this);
@@ -41,11 +30,11 @@ class OverallBalance extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.updateOverallBalance = this.updateOverallBalance.bind(this);
     this.handleCategoryButtonClick = this.handleCategoryButtonClick.bind(this);
-    this.handleAddBudgetClick = this.handleAddBudgetClick.bind(this);
     this.handleBudgetAllocation = this.handleBudgetAllocation.bind(this);
     this.checkNegative = this.checkNegative.bind(this);
+    this.handleEntryKey = this.handleEntryKey.bind(this);
 
-    };
+};
 
     moneyIsValidated(input) {
         let regexp = /^(?:(?:USD)?\$)?(?:-)?(?:\d+|\d{1,3}(?:,\d{3})*)(?:\.\d{1,2})?$/;
@@ -58,7 +47,6 @@ class OverallBalance extends Component {
         if(this.moneyIsValidated(e.target.value)===true) {
             this.setState({overallBalance: e.target.value});
         }
-        //may be able to condense this down into one method.
     }
 
     checkNegative() {
@@ -79,9 +67,6 @@ class OverallBalance extends Component {
         console.log(this.state.overallBalance);
         this.setState({showPop: false});
         this.checkNegative();
-        //TODO: Move the color changing thing somehwhere else so that budget components can access it.
-        //TODO: Also does not account for if initial typed value is negative.
-
     }
 
     handleSubmission() {
@@ -95,29 +80,13 @@ class OverallBalance extends Component {
     }
 
     handleCategoryButtonClick() {
-    this.setState({
-        showBudgets: true,
-    });
-}
-
-handleAddBudgetClick() {
-    let array = this.state.budgets;
-    array.push({
-        title: '',
-        entries: [
-            {
-                name: '',
-                amount: 0,
-            },
-        ],
-    },);
-    this.setState({budgets: array});
-    console.log(array);
-}
+        this.setState({
+            showBudgets: true,
+        });
+    }
 
 
 handleBudgetAllocation() {
-    //TODO: Fix this so that it doesn't re-subtract old budgets when you change it.
     console.log("Starting budget allocation handler!");
     var allocations = document.getElementsByClassName("BudgetAllocation");
     var allocationsArray = Array.prototype.slice.call(allocations).map((allocation) => allocation.value);
@@ -137,8 +106,18 @@ handleBudgetAllocation() {
     });
 }
 
-handleEntryKey() {
-        //TODO: IMPLEMENT THIS WHEN YOU PULL IT DOWN.
+handleEntryKey(e) {
+    this.forceUpdate();
+    if(e.keyCode==13) {
+        //set the state
+        //maybe make active element disabled.
+        let allocation = Number(document.activeElement.value.replace(/[^0-9.||-]+/g, ""));
+        let oldAllocation = Number(this.state.amountAllocated.replace(/[^0-9.||-]+/g, ""));
+        this.setState({amountAllocated: (oldAllocation-allocation).toString()});
+        let oldTotalUsed = Number(this.state.totalUsed.replace(/[^0-9.||-]+/g, ""));
+        this.setState({totalUsed: (oldTotalUsed + allocation).toString()});
+
+    }
 }
 
 
@@ -154,18 +133,18 @@ handleEntryKey() {
                     <button className="OverallBalance-submit"  type="button" onClick={this.handleSubmission}> Enter </button>
                     <button className="OverallBalance-submit" type="button" onClick={this.handleEdit}>Edit</button>
                     {this.state.showPop ? <EditPopup updateOverallBalance={(e) => this.updateOverallBalance(e)}/> : null}
-                    {/*Seems like potential opportunity for refactoring*/}
                 </form>
-                {/*<CategoryButton handleClick={this.handleCategoryButtonClick} name="Generate Budgets &#10227;" color="#10d3a6"/>*/}
-                <CategoryButton handleClick={this.handleAddBudgetClick} name="Add New Budget" color="#10d3a6"/>
-                {/*<CategoryButton handleClick={null} name="Add New Entry" color="#10d3a6"/>*/}
-                {this.state.showBudgets ? <Budget balance={this.state.overallBalance} handleBudgetAllocation={(e) => this.handleBudgetAllocation(e)}/> : null}
-                {
-                    this.state.budgets.map((item) => (
-                        <Budget totalUsed={this.state.totalUsed} amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>
-                    ))
-                }
 
+                            <CategoryButton handleClick={this.handleAddBudgetClick} name="Add New Budget" color="#10d3a6"/>
+                            <Budget totalUsed={this.state.totalUsed} amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}  handleEntryKey={(e) => this.handleEntryKey(e)} />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+                            <CategoryEntry handleEntryKey={(e) => this.handleEntryKey(e)} color="#42f4c8" />
+
+                {this.state.showBudgets ?  <Budget handleEntryKey={(e) => this.handleEntryKey(e)} totalUsed={this.state.totalUsed} amountAllocated={this.state.amountAllocated} addEntry={this.handleAddEntry} entries={this.state.budgets.map((budget)=> budget.entries)} balance={this.state.overallBalance} handleBudgetAllocation={this.handleBudgetAllocation}/>  : null}
 
             </div>
         );
@@ -189,7 +168,6 @@ function EditPopup(props) {
 
 EditPopup.propTypes = {
     updateOverallBalance: PropTypes.func.isRequired
-    // {Need to test this: it says func is unresolved variable}
 }
 
 

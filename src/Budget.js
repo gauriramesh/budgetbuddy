@@ -5,22 +5,7 @@ function Budget(props) {
             <div>
                 <BudgetAllocation handleBudgetAllocation={props.handleBudgetAllocation}/>
                 <BalanceTracking amountAllocated={props.amountAllocated}/>
-                <BudgetTitle balance={props.balance} addEntry={props.addEntry}/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
-                <CategoryEntry handleEntryKey={props.handleEntryKey} color="#adf442"/>
                 <BottomTotals totalUsed={props.totalUsed}/>
-
-                {/*{*/}
-                {/*props.entries.map((entry) => (*/}
-                    {/*<CategoryEntry color="#adf442"/>*/}
-                {/*))*/}
-            {/*}*/}
             </div>
         );
 }
@@ -51,18 +36,6 @@ function BudgetAllocation(props) {
           <input id="totalAllocated" className="Entry BudgetAllocation" placeholder="Total Amount Allocated"/>
           <button className="CategoryBalance" type="button" onClick={props.handleBudgetAllocation}> 	&#10003; </button>
       </div>
-    );
-}
-
-
-
-function CategoryEntry(props) {
-    return(
-        <div>
-            <input className="BudgetTitle" placeholder="Name" style={{backgroundColor: props.color}} />
-            {/*On change probably need to update the giant data structure*/}
-            <input className="Entry" placeholder="Amount" style={{backgroundColor: props.color}} onKeyPress={props.handleEntryKey} />
-        </div>
     );
 }
 
